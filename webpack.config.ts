@@ -9,6 +9,7 @@ const debug = process.env.NODE_ENV !== 'production';
 const plugins = [
   new HtmlWebpackPlugin({
     title: 'spinner-3d',
+    favicon: './assets/favicon.ico',
     meta: {
       viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no'
     },

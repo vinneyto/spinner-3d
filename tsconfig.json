@@ -8,7 +8,6 @@
     "jsx": "react",
     "lib": ["dom", "esnext"],
     "downlevelIteration": true,
-    "noUnusedLocals": true,
     "noUnusedParameters": true,
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
