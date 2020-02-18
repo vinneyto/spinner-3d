@@ -39,7 +39,10 @@ export default {
     extensions: ['.ts', '.js']
   },
   module: {
-    rules: [{ test: /\.ts$/, loader: 'ts-loader' }]
+    rules: [
+      { test: /\.ts/, loader: 'ts-loader' },
+      { test: /\.glsl/, loader: 'raw-loader' }
+    ]
   },
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
