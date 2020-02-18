@@ -1,5 +1,9 @@
 const float PI = 3.141592653589793;
 
+uniform vec4 color;
+uniform float fromAngle;
+uniform float toAngle;
+
 varying vec2 v_uv;
 
 float circle(float radius) {
@@ -19,9 +23,9 @@ bool isAngleBetween(float target, float angle1, float angle2) {
 
   float PI2 = PI * 2.;
 
-  target = mod((PI2 + (mod(target, PI2))), PI2);
-  startAngle = mod((PI2 * 1000. + startAngle), PI2);
-  endAngle = mod((PI2 * 1000. + endAngle), PI2);
+  target = mod(target, PI2);
+  startAngle = mod(startAngle, PI2);
+  endAngle = mod(endAngle, PI2);
 
   if (startAngle < endAngle) return startAngle <= target && target <= endAngle;
   return startAngle <= target || target <= endAngle;
@@ -38,7 +42,7 @@ float sector(float startAngle, float endAngle) {
 }
 
 void main() {
-    float c = circle(0.5) * sector(0.0, 1.0);
+    float c = circle(0.5) * (1.0 - circle(0.4)) * sector(fromAngle, toAngle);
 
-    gl_FragColor = vec4(v_uv, 0.0, 1.0) * c;
+    gl_FragColor = color * c;
 }

@@ -4,11 +4,8 @@ import {
   MeshPhysicalMaterial,
   Mesh,
   Scene,
-  DirectionalLight,
   PointLight,
-  SphereGeometry,
-  MeshBasicMaterial,
-  PlaneGeometry
+  Vector4
 } from 'three';
 import { createRenderer, resizeRendererToDisplaySize } from './util';
 import { CameraController } from './CameraController';
@@ -25,12 +22,15 @@ const box = createBox(0.1, 0xff0000);
 box.position.y = -0.05;
 scene.add(box);
 
-const spinner = new Spinner(0.1);
+const spinner = new Spinner(0.1, new Vector4(0, 1, 0, 0.4));
 spinner.position.y = 0.05;
 scene.add(spinner);
 
 const light = new PointLight();
 scene.add(light);
+
+let angleFrom = 0;
+let angleTo = 0;
 
 const render = () => {
   if (resizeRendererToDisplaySize(renderer)) {
@@ -42,6 +42,12 @@ const render = () => {
   light.position.copy(camera.position);
 
   cameraController.update(camera);
+
+  angleFrom += 0.05;
+  angleTo += 0.1;
+
+  spinner.setFromAngle(angleFrom);
+  spinner.setToAngle(angleTo);
 
   renderer.render(scene, camera);
 
@@ -59,11 +65,3 @@ function createBox(size: number, color: number) {
   });
   return new Mesh(geometry, material);
 }
-
-// function createSphere(radius: number, color: number) {
-//   const geometry = new SphereGeometry(radius, 32, 32);
-//   const material = new MeshBasicMaterial({
-//     color
-//   });
-//   return new Mesh(geometry, material);
-// }
